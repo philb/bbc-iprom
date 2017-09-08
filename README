@@ -1,0 +1,11 @@
+This is a primitive implementation of TCP/IP for the BBC.  At the moment it is in a very experimental state.  There are many bugs and rough edges.  Basically, it allows you to use an Econet-equipped BBC to log into another machine via telnet.
+
+The software is provided as a ROM image.  You need to load this into sideways RAM.  It can't be blown into an EPROM, because it uses part of the RAM bank for data storage.  After loading the ROM, you must press Ctrl-Break to allow it to initialise.  You must put TCP/IP in a higher priority ROM socket than NFS.  TCP/IP will only work when *NET is the current filing system.
+
+You need to say "*IPADDR aaa.bbb.ccc.ddd" to tell the machine its own IP address, and "*ROUTE <target> <gateway>" to set up routes.  <target> can either be an IP address or "*" (which defines the default route).  <gateway> must be an IP address.  You will probably only need to set up a default route.  Hosts on the local subnet are dealt with automatically.
+
+Then, you can use *TELNET or *TELAPI to make a connection.  *TELAPI connects to a remote host and then returns; the ROM hooks INSV and REMV and pretends to be a serial port, so you can use your favourite terminal program (TERMULATOR is a good one).  *TELNET makes a connection and then uses the ROM's internal dumb terminal routines.
+
+--
+Philip Blundell <pjb27@cam.ac.uk>
+phone 0973 869202 / 01223 302522
